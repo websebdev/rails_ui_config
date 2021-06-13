@@ -3,7 +3,11 @@
   <% @environment.fields.each do |field| %>
     <div>
       <%= form.label :value, field.name %>
-      <%= form.text_field :value, name: "environment[fields][#{field.name}]", value: field.value %>
+      <% if field.suggestions.any? %>
+        <%= form.select :value, field.suggestions, {selected: field.value}, {name: "environment[fields][#{field.name}]"} %>
+      <% else %>
+        <%= form.text_field :value, name: "environment[fields][#{field.name}]", value: field.value %>
+      <% end %>
     </div>
   <% end %>
   <%= form.submit %>

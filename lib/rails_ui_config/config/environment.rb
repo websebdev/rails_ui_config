@@ -15,7 +15,7 @@ module RailsUiConfig
         @file_path = Rails.root.join("config/environments/#{@env}.rb").to_s
         @fields = []
 
-        Field::NAMES.each do |name|
+        Field::OPTIONS.keys.each do |name|
           @fields << Field.new(name: name, value: get_current_option(name))
         end
       end
