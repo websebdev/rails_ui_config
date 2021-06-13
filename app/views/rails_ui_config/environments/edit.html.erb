@@ -1,12 +1,29 @@
+<style>
+.select-editable {position:relative; background-color:white; border:solid grey 1px;  width:120px; height:18px;}
+.select-editable select {position:absolute; top:0px; left:0px; font-size:14px; border:none; width:120px; margin:0;}
+.select-editable input {position:absolute; top:0px; left:0px; width:100px; padding:1px; font-size:12px; border:none;}
+.select-editable select:focus, .select-editable input:focus {outline:none;}
+</style>
+
 <%= form_with(model: @environment) do |form| %>
-  <% console %>
   <% @environment.fields.each do |field| %>
-    <div>
-      <%= form.label :value, field.name %>
+    <div style="display: flex; margin-bottom: 4px;">
+      <%= form.label "field_#{field.name}", field.name, style: "margin-right: 4px;" %>
       <% if field.suggestions.any? %>
-        <%= form.select :value, field.suggestions, {selected: field.value}, {name: "environment[fields][#{field.name}]"} %>
+        <div class="select-editable">
+          <%= form.select(
+            :value, field.suggestions,
+            {selected: field.value},
+            {
+              name: "environment[fields][#{field.name}]",
+              class: "value-field-#{field.name}",
+              onchange: "this.nextElementSibling.value=this.value"
+            }
+          ) %>
+          <%= form.text_field "field_#{field.name}", name: "environment[fields][#{field.name}]", value: field.value, list: "field_#{field.name}" %>
+        </div>
       <% else %>
-        <%= form.text_field :value, name: "environment[fields][#{field.name}]", value: field.value %>
+        <%= form.text_field "field_#{field.name}", name: "environment[fields][#{field.name}]", value: field.value %>
       <% end %>
     </div>
   <% end %>
