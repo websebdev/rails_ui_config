@@ -1,3 +1,3 @@
 RailsUiConfig::Engine.routes.draw do
-  resources :articles
+  resources :environments, only: [:edit, :update]
 end
