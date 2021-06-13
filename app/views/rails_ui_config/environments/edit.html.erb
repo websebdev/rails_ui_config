@@ -1,15 +1,10 @@
 <%= form_with(model: @environment) do |form| %>
-  <div style="display: flex;">
-    <%= form.label :eager_load %>
-    <%= form.select :eager_load, ["true", "false"], {}, {style: "margin-left: 4px;"} %>
-  </div>
-  <div style="display: flex;">
-    <%= form.label :cache_classes %>
-    <%= form.select :cache_classes, ["true", "false"], {}, {style: "margin-left: 4px;"} %>
-  </div>
-  <div style="display: flex;">
-    <%= form.label :log_level %>
-    <%= form.select :log_level, [":debug", ":info", ":warn", ":error", ":fatal", ":unknown"], {}, {style: "margin-left: 4px;"} %>
-  </div>
+  <% console %>
+  <% @environment.fields.each do |field| %>
+    <div>
+      <%= form.label :value, field.name %>
+      <%= form.text_field :value, name: "environment[fields][#{field.name}]", value: field.value %>
+    </div>
+  <% end %>
   <%= form.submit %>
 <% end %>

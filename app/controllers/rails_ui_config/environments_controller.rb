@@ -5,7 +5,7 @@ class RailsUiConfig::EnvironmentsController < ApplicationController
   end
 
   def update
-    @environment.update(environment_params)
+    @environment.update(environment_params[:fields])
 
     redirect_to edit_environment_path(@environment)
   end
@@ -13,7 +13,7 @@ class RailsUiConfig::EnvironmentsController < ApplicationController
   private
 
   def environment_params
-    params.require(:environment).permit(:cache_classes, :eager_load, :log_level)
+    params.require(:environment).permit(fields: RailsUiConfig::Config::Field::NAMES)
   end
 
   def set_environment

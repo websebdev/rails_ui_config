@@ -6,6 +6,8 @@ gemspec
 
 group :development do
   gem 'sqlite3'
+  gem 'pry'
+  gem 'web-console'
 end
 
 # To use a debugger
