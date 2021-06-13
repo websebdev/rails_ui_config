@@ -38,12 +38,17 @@ module RailsUiConfig
         option_names.each do |option_name|
           field = fields.find {|f| f.name.to_s == option_name.to_s}
 
+
           index = lines.find_index {|l| l.split("=").first.strip == field.config_line}
 
           if index # if the config is already there, replace it
-            spaces = " " * lines[index][/\A */].size
-            lines[index] = "#{spaces}#{field.config_line_with_value}"
-          else # if not, just add it at the bottom
+            if field.value.blank?
+              lines.delete_at(index)
+            else
+              spaces = " " * lines[index][/\A */].size
+              lines[index] = "#{spaces}#{field.config_line_with_value}"
+            end
+          elsif field.value.present? # if not, just add it at the bottom
             spaces = " " * lines[end_index - 1][/\A */].size
             lines.insert(end_index, "#{spaces}#{field.config_line_with_value}")
           end
