@@ -13,7 +13,7 @@ class RailsUiConfig::EnvironmentsController < ApplicationController
   private
 
   def environment_params
-    params.require(:environment).permit(fields: RailsUiConfig::Config::Field::OPTIONS.keys)
+    params.require(:environment).permit(fields: RailsUiConfig::Config::Environment::Field::OPTIONS.keys)
   end
 
   def set_environment
