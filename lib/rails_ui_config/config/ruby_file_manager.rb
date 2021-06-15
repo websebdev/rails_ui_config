@@ -1,13 +1,10 @@
 module RailsUiConfig
   module Config
     class RubyFileManager
-      attr_accessor :file_path
+      attr_accessor :file_path, :lines
 
       def initialize(file_path)
         @file_path = file_path
-      end
-
-      def lines
         @lines ||= File.readlines(file_path)
       end
 
