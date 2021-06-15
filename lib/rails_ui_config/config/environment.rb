@@ -30,8 +30,6 @@ module RailsUiConfig
       end
 
       def save(option_names)
-        end_index = file_manager.lines.find_index {|l| l == "end\n"}
-
         option_names.each do |option_name|
           field = fields.find {|f| f.name.to_s == option_name.to_s}
           file_manager.update_option(field.name, field.value)
