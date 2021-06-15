@@ -6,8 +6,8 @@ module RailsUiConfig
 
         def initialize(file_path)
           @file_path = file_path
-          @file_manager = RailsUiConfig::Config::RubyFileManager.new(@file_path)
-          @fields = Environment::Field::OPTIONS.keys.map do |name|
+          @file_manager = RubyFileManager.new(@file_path)
+          @fields = Field::OPTIONS.keys.map do |name|
             Field.new(name: name, value: @file_manager.get_current_option_value(name))
           end
         end

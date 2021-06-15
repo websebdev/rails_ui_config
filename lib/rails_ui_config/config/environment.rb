@@ -13,7 +13,7 @@ module RailsUiConfig
       def initialize(env: "development")
         @env = env
         @file_path = Rails.root.join("config/environments/#{@env}.rb").to_s
-        @config = Environment::Config.load(@file_path)
+        @config = Config.load(@file_path)
       end
 
       def update(options = {})
