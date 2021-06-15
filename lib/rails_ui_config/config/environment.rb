@@ -3,7 +3,7 @@ module RailsUiConfig
     class Environment
       include ActiveModel::Model
 
-      attr_accessor :file_path, :env, :fields, :file_manager
+      attr_accessor :file_path, :env, :fields, :file_manager, :lines
       attr_writer :lines
 
       def self.find(env)
@@ -15,14 +15,11 @@ module RailsUiConfig
         @file_path = Rails.root.join("config/environments/#{@env}.rb").to_s
         @fields = []
         @file_manager = RailsUiConfig::Config::RubyFileManager.new(@file_path)
+        @lines = File.readlines(@file_path)
 
         Environment::Field::OPTIONS.keys.each do |name|
           @fields << Environment::Field.new(name: name, value: @file_manager.get_current_option_value(name))
         end
-      end
-
-      def lines
-        @lines ||= File.readlines(file_path)
       end
 
       def update(options = {})
