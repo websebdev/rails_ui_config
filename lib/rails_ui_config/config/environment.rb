@@ -4,7 +4,6 @@ module RailsUiConfig
       include ActiveModel::Model
 
       attr_accessor :file_path, :env, :fields, :file_manager
-      attr_writer :lines
 
       def self.find(env)
         new(env: env)
