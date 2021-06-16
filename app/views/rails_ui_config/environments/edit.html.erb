@@ -5,6 +5,8 @@
 .select-editable select:focus, .select-editable input:focus {outline:none;}
 </style>
 
+<h2>Configuring <i><%= @environment.name %></i> environment</h2>
+
 <%= form_with(model: @environment) do |form| %>
   <% @environment.fields.each do |field| %>
     <div style="display: flex; margin-bottom: 4px;">
