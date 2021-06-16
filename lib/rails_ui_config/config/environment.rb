@@ -3,16 +3,27 @@ module RailsUiConfig
     class Environment
       include ActiveModel::Model
 
-      attr_accessor :file_path, :env, :config
+      ENVS = {
+        development: { path: "config/environments/development.rb"},
+        production: { path: "config/environments/production.rb"},
+        test: { path: "config/environments/test.rb"},
+        application: { path: "config/application.rb"}
+      }
+
+      attr_accessor :file_path, :name, :config
       delegate :fields, to: :config
 
-      def self.find(env)
-        new(env: env)
+      def self.find(name)
+        new(name: name.to_sym)
       end
 
-      def initialize(env: "development")
-        @env = env
-        @file_path = Rails.root.join("config/environments/#{@env}.rb").to_s
+      def self.all
+        ENVS.keys.map { |env| new(name: env) }
+      end
+
+      def initialize(name: :development)
+        @name = name
+        @file_path = Rails.root.join(ENVS[name][:path]).to_s
         @config = Config.load(@file_path)
       end
 
@@ -25,7 +36,7 @@ module RailsUiConfig
       end
 
       def to_param
-        env
+        name
       end
 
       def persisted?

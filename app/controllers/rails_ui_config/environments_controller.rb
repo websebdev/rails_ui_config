@@ -1,5 +1,9 @@
 class RailsUiConfig::EnvironmentsController < ApplicationController
-  before_action :set_environment
+  before_action :set_environment, only: [:edit, :update]
+
+  def index
+    @environments = RailsUiConfig::Config::Environment.all
+  end
 
   def edit
   end

@@ -1,0 +1,6 @@
+<h1>Rails UI Config</h1>
+<br>
+<h2>Environments</h2>
+<% @environments.each do |environment| %>
+	<div><%= link_to environment.name, edit_environment_path(environment) %></div>
+<% end %>
