@@ -1,4 +1,4 @@
-class RailsUiConfig::EnvironmentsController < ApplicationController
+class RailsUiConfig::EnvironmentsController < RailsUiConfig::ApplicationController
   before_action :set_environment, only: [:edit, :update]
 
   def index
