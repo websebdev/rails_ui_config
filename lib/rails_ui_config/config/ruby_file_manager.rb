@@ -39,6 +39,10 @@ module RailsUiConfig
       def calculate_indentation(line)
         " " * line[/\A */].size
       end
+
+      def end_index
+        lines.find_index {|l| l == "end\n"}
+      end
     end
   end
 end
