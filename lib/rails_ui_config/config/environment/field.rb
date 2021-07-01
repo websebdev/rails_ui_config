@@ -45,15 +45,17 @@ module RailsUiConfig
           add_autoload_paths_to_load_path: { suggestions: BOOLEAN_SUGGESTIONS },
           rake_eager_load: { suggestions: BOOLEAN_SUGGESTIONS },
           "public_file_server.headers": {}, # hash
+          headers: { parent: :public_file_server }, # hash
           autoload_paths: {} # array
         }
         TYPES = [:string, :boolean, :symbol]
 
-        attr_accessor :name, :value
+        attr_accessor :name, :value, :node
 
-        def initialize(name:, value: nil)
+        def initialize(name:, value: nil, node: nil)
           @name = name
           @value = value
+          @node = node
         end
 
         def config_line_with_value
@@ -66,6 +68,10 @@ module RailsUiConfig
 
         def suggestions
           OPTIONS.dig(name, :suggestions) || []
+        end
+
+        def parent
+          OPTIONS.dig(name, :parent)
         end
       end
     end
